@@ -1,0 +1,47 @@
+const Discord = require('discord.js');
+const client = new Discord.Client();
+// var token = require("./token.json")
+var prefix = "!"
+
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+
+
+
+
+
+
+client.on('guildMemberAdd',function(member){
+  var role = member.guild.roles.find("name","member")
+  if(!role) return;
+  var channel = client.channels.get("644928724860534788");
+  if(!channel) return;
+  console.log(member)
+  channel.sendMessage(`Welcome user ${member} to ${member.guild.name}`)
+  member.addRole(role)
+});
+
+
+
+
+
+
+
+
+client.on('message', msg => {
+  var args = msg.content.substring(prefix.length).split(" ")
+  if(!msg.content.startsWith(prefix)) return;
+
+
+  switch(args[0]) {
+    case"info":
+    console.log(msg)
+    msg.channel.send(msg.guild.name)
+    break;
+  }
+
+});
+
+
+client.login('YOUR OWN COOL BOT TOKEN');
